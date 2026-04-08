@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const projects = [
   {
@@ -61,19 +62,25 @@ const isMobile = (type: string) => type === "iOS App" || type === "Mobile App";
 
 function Lightbox({ images, index, title, onClose, maxWidth = "min(88vw, 480px)" }: { images: string[]; index: number; title: string; onClose: () => void; maxWidth?: string }) {
   const [current, setCurrent] = useState(index);
+  const [mounted, setMounted] = useState(false);
   const hasPrev = current > 0;
   const hasNext = current < images.length - 1;
 
-  const handleKey = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") onClose();
-    if (e.key === "ArrowLeft" && hasPrev) setCurrent(current - 1);
-    if (e.key === "ArrowRight" && hasNext) setCurrent(current + 1);
-  };
+  useEffect(() => { setMounted(true); }, []);
 
-  return (
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && hasPrev) setCurrent((c) => c - 1);
+      if (e.key === "ArrowRight" && hasNext) setCurrent((c) => c + 1);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [hasPrev, hasNext, onClose]);
+
+  const content = (
     <div
       onClick={onClose}
-      onKeyDown={handleKey}
       tabIndex={-1}
       style={{
         position: "fixed",
@@ -189,6 +196,9 @@ function Lightbox({ images, index, title, onClose, maxWidth = "min(88vw, 480px)"
       </button>
     </div>
   );
+
+  if (!mounted) return null;
+  return createPortal(content, document.body);
 }
 
 function MobileGallery({ images, title }: { images: string[]; title: string }) {

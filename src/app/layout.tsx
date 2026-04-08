@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Newsreader, Inter } from "next/font/google";
 import "./globals.css";
 import LoadingScreen from "./components/LoadingScreen";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const newsreader = Newsreader({
   variable: "--font-newsreader",
@@ -56,6 +57,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased">
         <LoadingScreen />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
