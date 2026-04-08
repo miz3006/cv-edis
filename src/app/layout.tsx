@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Newsreader, Inter } from "next/font/google";
 import "./globals.css";
+import LoadingScreen from "./components/LoadingScreen";
 
 const newsreader = Newsreader({
   variable: "--font-newsreader",
@@ -52,7 +53,10 @@ export default function RootLayout({
       lang="en"
       className={`${newsreader.variable} ${inter.variable}`}
     >
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <LoadingScreen />
+        {children}
+      </body>
     </html>
   );
 }
