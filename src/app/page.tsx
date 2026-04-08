@@ -193,7 +193,7 @@ export default function Home() {
                 className="text-base leading-relaxed"
                 style={{ color: "var(--text)", maxWidth: "48ch" }}
               >
-                Outside of building things, I train gym, running, occasional martial arts. Mostly as a valid excuse to eat well and eat a lot.
+                When I’m not building stuff, I’m probably training — gym, running, maybe some martial arts here and there. Mostly so I can eat more without guilt.
                 <br /><br />
                 I travel whenever I can. New places, new food, new people. There&apos;s always something worth seeing.
                 <br /><br />

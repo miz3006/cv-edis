@@ -12,7 +12,7 @@ const projects = [
     description:
       "Solves the \"where do we go tonight?\" problem. Spin the wheel, let it decide.",
     detail:
-      "You open the app, it loads places near you bars, restaurants, coffee shops, outdoor spots, whatever vibe you're after. Filter by category, hit spin, and the wheel picks for you. Accept it, spin again, or save it for later. That's the core loop.\n\nBeyond that it has a full auth flow (Apple, Google, email), a favorites list, place detail pages with hours and open status, push notifications, and a profile with your stats.\n\nBuilt with React Native + Expo (Expo Router, TypeScript strict), styled with NativeWind v4. Backend on Supabase Postgres, auth, and a custom RPC function (search_places) that takes lat/lng + radius and returns ranked results with real-time open/closed status. Analytics with PostHog. iOS only.",
+      "WhereAt is an app that helps you decide where to go, based on your current vibe and location. It surfaces nearby places like bars, restaurants, coffee spots, outdoor hangouts and lets you filter by category. Instead of overthinking, you can simply hit spin and let the app pick for you. You can accept the suggestion, spin again, or save it for later. That simple decision loop is at the core of the experience. Beyond that, WhereAt includes a full authentication flow (Apple, Google, email), a favorites system, detailed place pages with opening hours and real-time open/closed status, push notifications, and a personal profile with your stats. The app is built with React Native and Expo (Expo Router with strict TypeScript), styled using NativeWind v4. On the backend, it uses Supabase (Postgres and Auth), along with a custom RPC function (search_places) that takes the user’s location (lat/lng + radius) and returns ranked results with real-time availability. Analytics are handled through PostHog. The app is currently iOS-only.",
     tags: ["React Native", "Expo", "TypeScript", "Supabase", "NativeWind", "PostHog"],
     images: ["/projects/whereat.png", "/projects/whereat-2.png", "/projects/whereat-3.png"],
     link: null,
@@ -36,9 +36,9 @@ const projects = [
     type: "Mobile App",
     stack: "FlutterFlow · Supabase",
     description:
-      "Early prototype of what later became SpinPlace built with a classmate as a university project.",
+      "Early prototype of what later became WhereAt built with a classmate as a university project.",
     detail:
-      "An early prototype of what later became SpinPlace, built with a classmate as a university project. Designed and assembled the full app in FlutterFlow core screens, navigation flow, and basic Supabase integration before the concept evolved into a full React Native build.",
+      "An early prototype of what later became WhereAt, built with a classmate as a university project. Designed and assembled the full app in FlutterFlow core screens, navigation flow, and basic Supabase integration before the concept evolved into a full React Native build.",
     tags: ["FlutterFlow", "Supabase", "Prototyping", "University Project"],
     images: ["/projects/kamgremo-1.png", "/projects/kamgremo-2.png", "/projects/kamgremo-3.png"],
     link: null,
