@@ -243,7 +243,6 @@ export default function Home() {
                   { label: "Phone", value: "+386 70 431 624", href: "tel:+38670431624" },
                   { label: "LinkedIn", value: "linkedin.com/in/edismizic", href: "https://www.linkedin.com/in/edismizic/", external: true },
                   { label: "GitHub", value: "github.com/miz3006", href: "https://github.com/miz3006", external: true },
-                  { label: "CV", value: "Edis_Mizic_CV.pdf", href: "/Edis_Mizic_CV.pdf", external: true },
                 ].map(({ label, value, href, external }) => (
                   <a
                     key={label}
