@@ -2,20 +2,50 @@
 
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 
-const projects = [
+type ProjectImage = { src: string; width: number; height: number };
+
+type Project = {
+  number: string;
+  title: string;
+  type: string;
+  year?: string;
+  stack: string;
+  description: string;
+  detail: string;
+  tags: string[];
+  images: ProjectImage[];
+  links: { label: string; href: string; appStoreBadge?: boolean }[];
+  featured?: boolean;
+};
+
+const projects: Project[] = [
   {
     number: "01",
     title: "WhereAt",
     type: "iOS App",
     stack: "React Native · Expo · Supabase",
+    featured: true,
     description:
-      "Solves the \"where do we go tonight?\" problem. Spin the wheel, let it decide.",
+      "My best product by far — kills the \"where do we go tonight?\" debate. Spin the wheel, let it decide.",
     detail:
-      "WhereAt is an app that helps you decide where to go, based on your current vibe and location. It surfaces nearby places like bars, restaurants, coffee spots, outdoor hangouts and lets you filter by category. Instead of overthinking, you can simply hit spin and let the app pick for you. You can accept the suggestion, spin again, or save it for later. That simple decision loop is at the core of the experience. Beyond that, WhereAt includes a full authentication flow (Apple, Google, email), a favorites system, detailed place pages with opening hours and real-time open/closed status, push notifications, and a personal profile with your stats. The app is built with React Native and Expo (Expo Router with strict TypeScript), styled using NativeWind v4. On the backend, it uses Supabase (Postgres and Auth), along with a custom RPC function (search_places) that takes the user’s location (lat/lng + radius) and returns ranked results with real-time availability. Analytics are handled through PostHog. The app is currently iOS-only.",
+      "WhereAt is my most complete product to date — an iOS app that helps you decide where to go based on your current vibe and location. It surfaces nearby bars, restaurants, coffee spots and outdoor hangouts from a curated base of 40+ places in Ljubljana, lets you filter by category, and when nobody can decide, you hit spin and let the app pick. Accept the suggestion, spin again, or save it for later — that simple decision loop is the core of the experience.\n\nBeyond the wheel, it ships everything a real product needs: full authentication (Apple, Google, email), a favorites system, detailed place pages with opening hours and live open/closed status, push notifications, and a personal profile with your stats.\n\nBuilt with React Native and Expo (Expo Router, strict TypeScript), styled with NativeWind v4. Supabase (Postgres + Auth) powers the backend, including a custom search_places RPC that takes the user’s location and returns ranked results with real-time availability. Analytics run through PostHog. Currently iOS-only.",
     tags: ["React Native", "Expo", "TypeScript", "Supabase", "NativeWind", "PostHog"],
-    images: ["/projects/whereat.png", "/projects/whereat-2.png", "/projects/whereat-3.png"],
-    link: null,
+    images: [
+      { src: "/projects/whereat-1.jpg", width: 960, height: 2077 },
+      { src: "/projects/whereat-2.jpg", width: 960, height: 2077 },
+      { src: "/projects/whereat-3.jpg", width: 960, height: 2077 },
+      { src: "/projects/whereat-4.jpg", width: 960, height: 2077 },
+    ],
+    links: [
+      {
+        label: "Download on the App Store",
+        href: "https://apps.apple.com/si/app/whereat-spin-go/id6776366819",
+        appStoreBadge: true,
+      },
+      { label: "Visit Website", href: "https://whereatapp.vercel.app/" },
+    ],
   },
   {
     number: "02",
@@ -25,42 +55,38 @@ const projects = [
     description:
       "Full-stack booking app for massage appointments, built as a university team project.",
     detail:
-      "A full-stack web application for booking massage appointments, built as a university team project with a classmate. The app covers the core booking flow browsing services, selecting time slots, and managing reservations with a basic admin panel for staff-side management.",
+      "A full-stack web application for booking massage appointments, built as a university team project with a classmate. The app covers the core booking flow — browsing services, selecting time slots, and managing reservations — plus a basic admin panel for staff-side management.",
     tags: ["ASP.NET", "C#", "SQL Server", "University Project"],
-    images: ["/projects/massage.png"],
-    link: { label: "View on GitHub", href: "https://github.com/miz3006/webapp-masaze?tab=readme-ov-file" },
+    images: [
+      { src: "/projects/massage.jpg", width: 1600, height: 993 },
+      { src: "/projects/masaza-2.jpg", width: 1600, height: 1000 },
+      { src: "/projects/masaza-3.jpg", width: 1600, height: 896 },
+    ],
+    links: [{ label: "View on GitHub", href: "https://github.com/miz3006/massage-booking-app" }],
   },
   {
     number: "03",
-    title: "KamGremo",
-    type: "Mobile App",
-    stack: "FlutterFlow · Supabase",
-    description:
-      "Early prototype of what later became WhereAt built with a classmate as a university project.",
-    detail:
-      "An early prototype of what later became WhereAt, built with a classmate as a university project. Designed and assembled the full app in FlutterFlow core screens, navigation flow, and basic Supabase integration before the concept evolved into a full React Native build.",
-    tags: ["FlutterFlow", "Supabase", "Prototyping", "University Project"],
-    images: ["/projects/kamgremo-1.png", "/projects/kamgremo-2.png", "/projects/kamgremo-3.png"],
-    link: null,
-  },
-  {
-    number: "04",
     title: "VELIC Website",
     type: "Design & Dev",
+    year: "2024",
     stack: "Figma · WordPress",
     description:
-      "End-to-end freelance project full visual design in Figma, built and deployed in WordPress.",
+      "One of my first projects — full visual design in Figma, built and deployed in WordPress.",
     detail:
-      "Designed and developed a website for a client as a freelance project. Created the full visual design in Figma, then built and deployed it in WordPress. A end-to-end project covering both design and implementation.",
+      "One of my first projects: a website designed and developed for a client as a freelance job. Created the full visual design in Figma, then built and deployed it in WordPress — an end-to-end project covering both design and implementation.",
     tags: ["Figma", "WordPress", "Freelance", "Web Design"],
-    images: ["/projects/inoles.png"],
-    link: { label: "View Figma Design", href: "https://www.figma.com/design/tGkEKHOQWaQJ4FxdsZjAki/Untitled?node-id=0-1&t=n7EyhJ7RmCK7SYkg-1" },
+    images: [
+      { src: "/projects/inoles.png", width: 1440, height: 888 },
+      { src: "/projects/velic-2.png", width: 1470, height: 772 },
+      { src: "/projects/velic-3.png", width: 1474, height: 1028 },
+    ],
+    links: [{ label: "View Figma Design", href: "https://www.figma.com/design/tGkEKHOQWaQJ4FxdsZjAki/Untitled?node-id=0-1&t=n7EyhJ7RmCK7SYkg-1" }],
   },
 ];
 
 const isMobile = (type: string) => type === "iOS App" || type === "Mobile App";
 
-function Lightbox({ images, index, title, onClose, maxWidth = "min(88vw, 480px)" }: { images: string[]; index: number; title: string; onClose: () => void; maxWidth?: string }) {
+function Lightbox({ images, index, title, onClose, maxWidth = "min(88vw, 480px)" }: { images: ProjectImage[]; index: number; title: string; onClose: () => void; maxWidth?: string }) {
   const [current, setCurrent] = useState(index);
   const [mounted, setMounted] = useState(false);
   const hasPrev = current > 0;
@@ -119,7 +145,7 @@ function Lightbox({ images, index, title, onClose, maxWidth = "min(88vw, 480px)"
       )}
 
       <img
-        src={images[current]}
+        src={images[current].src}
         alt={`${title} screenshot ${current + 1}`}
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -128,7 +154,7 @@ function Lightbox({ images, index, title, onClose, maxWidth = "min(88vw, 480px)"
           height: "auto",
           display: "block",
           cursor: "default",
-          borderRadius: "4px",
+          borderRadius: "10px",
           boxShadow: "0 32px 80px rgba(0,0,0,0.6)",
         }}
       />
@@ -201,7 +227,7 @@ function Lightbox({ images, index, title, onClose, maxWidth = "min(88vw, 480px)"
   return createPortal(content, document.body);
 }
 
-function MobileGallery({ images, title }: { images: string[]; title: string }) {
+function MobileGallery({ images, title }: { images: ProjectImage[]; title: string }) {
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -241,9 +267,9 @@ function MobileGallery({ images, title }: { images: string[]; title: string }) {
         }}
         className="hide-scrollbar"
       >
-        {images.map((src, i) => (
+        {images.map((img, i) => (
           <button
-            key={i}
+            key={img.src}
             onClick={() => setLightbox(i)}
             aria-label={`View ${title} screenshot ${i + 1}`}
             style={{
@@ -258,10 +284,12 @@ function MobileGallery({ images, title }: { images: string[]; title: string }) {
               overflow: "hidden",
             }}
           >
-            <img
-              src={src}
+            <Image
+              src={img.src}
               alt={`${title} screenshot ${i + 1}`}
-              loading="lazy"
+              width={img.width}
+              height={img.height}
+              sizes="140px"
               style={{
                 width: "140px",
                 height: "auto",
@@ -313,15 +341,15 @@ function MobileGallery({ images, title }: { images: string[]; title: string }) {
   );
 }
 
-function WebGallery({ images, title }: { images: string[]; title: string }) {
+function WebGallery({ images, title }: { images: ProjectImage[]; title: string }) {
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   return (
     <>
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        {images.map((src, i) => (
+        {images.map((img, i) => (
           <button
-            key={i}
+            key={img.src}
             onClick={() => setLightbox(i)}
             style={{
               display: "block",
@@ -332,15 +360,17 @@ function WebGallery({ images, title }: { images: string[]; title: string }) {
               cursor: "zoom-in",
               position: "relative",
               overflow: "hidden",
-              borderRadius: "2px",
+              borderRadius: "10px",
             }}
             aria-label={`View ${title} screenshot ${i + 1} fullscreen`}
             className="gallery-thumb"
           >
-            <img
-              src={src}
+            <Image
+              src={img.src}
               alt={`${title} screenshot ${i + 1}`}
-              loading="lazy"
+              width={img.width}
+              height={img.height}
+              sizes="(min-width: 768px) 40vw, 90vw"
               style={{ width: "100%", height: "auto", display: "block" }}
             />
             <span
@@ -398,29 +428,61 @@ export default function ProjectsList() {
             >
               {/* Row */}
               <div
-                className="experience-row project-row-grid grid py-7 cursor-pointer"
+                className="experience-row project-row-grid row-toggle grid py-7 cursor-pointer"
                 style={{ gap: "1.5rem", alignItems: "start" }}
                 onClick={() => setOpen(isOpen ? null : project.number)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={isOpen}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setOpen(isOpen ? null : project.number);
+                  }
+                }}
               >
                 <span
-                  className="text-xs font-mono pt-1"
-                  style={{ color: "var(--muted)" }}
+                  className="font-sans"
+                  style={{
+                    color: "var(--subtle)",
+                    fontSize: "1.25rem",
+                    fontWeight: 300,
+                    lineHeight: 1.3,
+                    fontVariantNumeric: "tabular-nums",
+                  }}
                 >
                   {project.number}
                 </span>
 
                 <div>
-                  <h3
-                    className="font-sans text-base mb-1 leading-tight"
-                    style={{ color: "var(--text)", fontWeight: 400 }}
-                  >
-                    {project.title}
-                  </h3>
+                  <div className="flex items-center gap-3 mb-1">
+                    <h3
+                      className="font-sans text-lg leading-tight"
+                      style={{ color: "var(--text)", fontWeight: 400 }}
+                    >
+                      {project.title}
+                    </h3>
+                    {project.featured && (
+                      <span
+                        className="text-[10px] tracking-widest uppercase"
+                        style={{
+                          color: "var(--text)",
+                          border: "1px solid var(--text)",
+                          padding: "2px 10px",
+                          borderRadius: "999px",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Flagship
+                      </span>
+                    )}
+                  </div>
                   <span
                     className="text-xs tracking-wide"
                     style={{ color: "var(--muted)" }}
                   >
                     {project.type}
+                    {project.year ? ` · ${project.year}` : ""}
                   </span>
                 </div>
 
@@ -454,9 +516,8 @@ export default function ProjectsList() {
                 }}
               >
                 <div
-                  className="grid"
+                  className="grid detail-grid"
                   style={{
-                    gridTemplateColumns: "2.5rem 1fr",
                     gap: "1.5rem",
                     paddingBottom: "3rem",
                   }}
@@ -502,8 +563,8 @@ export default function ProjectsList() {
                             style={{
                               color: "var(--muted)",
                               border: "1px solid var(--divider)",
-                              padding: "3px 10px",
-                              borderRadius: "2px",
+                              padding: "4px 12px",
+                              borderRadius: "999px",
                             }}
                           >
                             {tag}
@@ -511,20 +572,45 @@ export default function ProjectsList() {
                         ))}
                       </div>
 
-                      {/* Link */}
-                      {project.link && (
-                        <a
-                          href={project.link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="link-muted text-xs"
-                          style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
-                        >
-                          {project.link.label}
-                          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                            <path d="M2 10L10 2M5 2h5v5" />
-                          </svg>
-                        </a>
+                      {/* Links */}
+                      {project.links.length > 0 && (
+                        <div className="flex flex-wrap items-center" style={{ gap: "1.25rem" }}>
+                          {project.links.map((link) =>
+                            link.appStoreBadge ? (
+                              <a
+                                key={link.href}
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={link.label}
+                                style={{ display: "inline-block", lineHeight: 0 }}
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src="/app-store-badge.svg"
+                                  alt={link.label}
+                                  width={120}
+                                  height={40}
+                                  style={{ display: "block", height: "40px", width: "auto" }}
+                                />
+                              </a>
+                            ) : (
+                              <a
+                                key={link.href}
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="link-muted text-xs"
+                                style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
+                              >
+                                {link.label}
+                                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                                  <path d="M2 10L10 2M5 2h5v5" />
+                                </svg>
+                              </a>
+                            )
+                          )}
+                        </div>
                       )}
                     </div>
 

@@ -35,7 +35,7 @@ export default function Nav() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md"
+      className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md nav-enter"
       style={{ borderBottom: "1px solid var(--divider)" }}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -53,11 +53,10 @@ export default function Nav() {
             <a
               key={href}
               href={href}
-              className="text-sm"
+              className={`text-sm nav-link${active === href.slice(1) ? " nav-active" : ""}`}
               style={{
                 color: active === href.slice(1) ? "var(--text)" : "var(--muted)",
                 transition: "color 200ms ease",
-                textDecoration: "none",
               }}
             >
               {label}
